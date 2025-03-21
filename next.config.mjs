@@ -6,6 +6,17 @@ try {
 }
 
 /** @type {import('next').NextConfig} */
+
+const nextConfig = {
+  webpack: (config) => {
+    config.cache = false;  // Disable caching temporarily
+    return config;
+  }
+};
+
+module.exports = nextConfig;
+
+
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
