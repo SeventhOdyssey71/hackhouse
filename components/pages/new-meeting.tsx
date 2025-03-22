@@ -6,11 +6,27 @@ import { Clock, Info, Video, Users, LinkIcon, Plus, X } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import CustomConnectButton from "@/components/custom-connect-button"
+import { TransactionBlock } from "@mysten/sui.js/transactions"
+import { SuiClient } from "@mysten/sui.js/client"
+import { useWallet } from "@suiet/wallet-kit" 
+import { bcs } from "@mysten/sui.js/bcs";  
+
 
 export default function NewMeetingPage() {
   const [meetingType, setMeetingType] = useState("30-min")
   const [location, setLocation] = useState("video")
   const [participants, setParticipants] = useState<string[]>([""])
+  const [title, setTitle] = useState("")
+  const [fee, setFee] = useState("0")
+  const [description, setDescription] = useState("")
+
+  
+  const { connected, signAndExecuteTransactionBlock, account } = useWallet()
+
+  
+  const client = new SuiClient({
+    url: "https://fullnode.testnet.sui.io:443", 
+  })
 
   const handleParticipantChange = (index: number, value: string) => {
     const newParticipants = [...participants]
@@ -30,9 +46,49 @@ export default function NewMeetingPage() {
     }
   }
 
+  const createMeeting = async () => {
+    if (!connected) {
+      alert("Please connect your wallet first!")
+      return
+    }
+  
+    try {
+      const minutes = parseInt(meetingType.split("-")[0]) || 30
+  
+      const tx = new TransactionBlock();
+
+        tx.moveCall({
+        target: "0xdea2937eef0fe5784167907796a0e35bb59d8bb1cde7a4f4c135f29e3d345c50::link_project::create_meeting",
+        arguments: [
+          tx.pure(bcs.ser("string", title || "Untitled Meeting").toBytes()),  
+          tx.pure(bcs.ser("u128", BigInt(minutes)).toBytes()),                
+          tx.pure(bcs.ser("string", location).toBytes()),                   
+          tx.pure(bcs.ser("u64", BigInt(fee || "0")).toBytes()),          
+          tx.pure(bcs.ser("string", description || "No description").toBytes())  
+        ],
+      });
+
+      const gasBudgetAmount = 100000000;  
+      tx.setGasBudget(gasBudgetAmount);
+
+  
+      const result = await signAndExecuteTransactionBlock({
+        transactionBlock: tx as unknown as Transaction,
+        options: {
+          showEffects: true,
+          showEvents: true,
+        },
+      })
+  
+      console.log("Meeting created successfully!", result)
+    } catch (error) {
+      console.error("Failed to create meeting:", error)
+    }
+  }
+  
+
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
       <header className="border-b bg-white p-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <h1 className="text-xl font-medium">New Meeting</h1>
@@ -41,7 +97,6 @@ export default function NewMeetingPage() {
         <CustomConnectButton />
       </header>
 
-      {/* Content */}
       <div className="flex-1 p-4 sm:p-6 max-w-3xl mx-auto w-full">
         <div className="bg-white border rounded-lg p-4 sm:p-6">
           <h2 className="text-xl font-medium mb-6">Create a new meeting</h2>
@@ -50,7 +105,12 @@ export default function NewMeetingPage() {
             {/* Meeting Title */}
             <div className="space-y-2">
               <label className="text-sm font-medium">Meeting Title</label>
-              <Input placeholder="e.g., Project Discussion" className="h-12" />
+              <Input
+                placeholder="e.g., Project Discussion"
+                className="h-12"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
 
             {/* Meeting Type */}
@@ -62,14 +122,12 @@ export default function NewMeetingPage() {
                     key={type}
                     className={cn(
                       "border rounded-lg p-4 flex flex-col items-center gap-2 transition-colors",
-                      meetingType === type ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50",
+                      meetingType === type ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50"
                     )}
                     onClick={() => setMeetingType(type)}
                   >
                     <Clock className={cn("h-6 w-6", meetingType === type ? "text-blue-500" : "text-gray-500")} />
-                    <span
-                      className={cn("text-sm font-medium", meetingType === type ? "text-blue-500" : "text-gray-700")}
-                    >
+                    <span className={cn("text-sm font-medium", meetingType === type ? "text-blue-500" : "text-gray-700")}>
                       {type} Meeting
                     </span>
                   </button>
@@ -84,7 +142,7 @@ export default function NewMeetingPage() {
                 <button
                   className={cn(
                     "border rounded-lg p-4 flex flex-col items-center gap-2 transition-colors",
-                    location === "video" ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50",
+                    location === "video" ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50"
                   )}
                   onClick={() => setLocation("video")}
                 >
@@ -93,66 +151,30 @@ export default function NewMeetingPage() {
                     Sui Video
                   </span>
                 </button>
-
                 <button
                   className={cn(
                     "border rounded-lg p-4 flex flex-col items-center gap-2 transition-colors",
-                    location === "in-person" ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50",
+                    location === "in-person" ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50"
                   )}
                   onClick={() => setLocation("in-person")}
                 >
                   <Users className={cn("h-6 w-6", location === "in-person" ? "text-blue-500" : "text-gray-500")} />
-                  <span
-                    className={cn("text-sm font-medium", location === "in-person" ? "text-blue-500" : "text-gray-700")}
-                  >
+                  <span className={cn("text-sm font-medium", location === "in-person" ? "text-blue-500" : "text-gray-700")}>
                     In Person
                   </span>
                 </button>
-
                 <button
                   className={cn(
                     "border rounded-lg p-4 flex flex-col items-center gap-2 transition-colors",
-                    location === "custom" ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50",
+                    location === "custom" ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50"
                   )}
                   onClick={() => setLocation("custom")}
                 >
                   <LinkIcon className={cn("h-6 w-6", location === "custom" ? "text-blue-500" : "text-gray-500")} />
-                  <span
-                    className={cn("text-sm font-medium", location === "custom" ? "text-blue-500" : "text-gray-700")}
-                  >
+                  <span className={cn("text-sm font-medium", location === "custom" ? "text-blue-500" : "text-gray-700")}>
                     Custom Link
                   </span>
                 </button>
-              </div>
-            </div>
-
-            {/* Participant(s) SuiNS */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Participant(s) SuiNS</label>
-              <div className="border rounded-lg p-4">
-                <div className="flex flex-col gap-3">
-                  {participants.map((participant, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <Input
-                        value={participant}
-                        onChange={(e) => handleParticipantChange(index, e.target.value)}
-                        placeholder="e.g., username.sui"
-                        className="flex-1"
-                      />
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => removeParticipant(index)}
-                        className="h-10 w-10 rounded-md flex-shrink-0"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  ))}
-                  <Button variant="outline" size="sm" onClick={addParticipant} className="mt-2 flex items-center gap-2">
-                    <Plus className="h-4 w-4" /> Add Participant
-                  </Button>
-                </div>
               </div>
             </div>
 
@@ -160,7 +182,12 @@ export default function NewMeetingPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Meeting Fee (Optional)</label>
               <div className="relative">
-                <Input placeholder="0.00" className="h-12 pl-8" />
+                <Input
+                  placeholder="0.00"
+                  className="h-12 pl-8"
+                  value={fee}
+                  onChange={(e) => setFee(e.target.value)}
+                />
                 <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</div>
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                   <select className="border-none bg-transparent text-gray-500 focus:outline-none">
@@ -177,15 +204,22 @@ export default function NewMeetingPage() {
               <textarea
                 className="w-full border rounded-lg p-3 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Add details about this meeting..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
 
             {/* Submit Button */}
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 h-12">Create Meeting</Button>
+            <Button
+              className="w-full bg-blue-600 hover:bg-blue-700 h-12"
+              onClick={createMeeting}
+              disabled={!connected}
+            >
+              Create Meeting
+            </Button>
           </div>
         </div>
       </div>
     </div>
   )
 }
-

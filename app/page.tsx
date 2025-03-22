@@ -180,7 +180,7 @@ export default function LandingPage() {
               >
                 <div className="space-y-4">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-blue-900 leading-tight">
-                    More than a scheduling link
+                    More than a scheduling "LINK"
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl font-light leading-relaxed">
                     LINK's functionality goes way beyond just a scheduling link, with customizable, automated features
@@ -642,7 +642,7 @@ export default function LandingPage() {
                     For individuals starting out with basic scheduling
                   </p>
                   <div className="mt-7 mb-7">
-                    <div className="text-3xl font-bold">Always free</div>
+                    <div className="text-3xl font-bold">Free</div>
                   </div>
                   <Button variant="outline" className="w-full" onClick={handleGetStarted}>
                     Get started
@@ -685,8 +685,8 @@ export default function LandingPage() {
                     For those with more sophisticated scheduling needs
                   </p>
                   <div className="mt-7 mb-7">
-                    <div className="text-3xl font-bold">$10</div>
-                    <div className="text-sm text-muted-foreground font-light">/seat/mo</div>
+                    <div className="text-3xl font-bold">10 SUI</div>
+                    <div className="text-sm text-muted-foreground font-light">per month</div>
                   </div>
                   <Button className="w-full bg-blue-500 hover:bg-blue-600" onClick={handleGetStarted}>
                     Get started
@@ -726,12 +726,12 @@ export default function LandingPage() {
                     For teams who need advanced features, security, and support
                   </p>
                   <div className="mt-7 mb-7">
-                    <div className="text-3xl font-bold">$20</div>
-                    <div className="text-sm text-blue-200 font-light">/seat/mo</div>
+                    <div className="text-3xl font-bold">20 SUI</div>
+                    <div className="text-sm text-blue-200 font-light">per month</div>
                   </div>
                   <Button
-                    variant="outline"
-                    className="w-full text-white border-white hover:bg-blue-800"
+                  
+                    className="w-full hover:bg-white-800"
                     onClick={handleGetStarted}
                   >
                     Get started

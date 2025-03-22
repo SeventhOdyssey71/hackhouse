@@ -14,18 +14,18 @@ export default function MyDatesPage() {
   const upcomingMeetings = [
     {
       id: 1,
-      name: "Sarah Williams",
+      name: "kotaro.sui",
       company: "Design Studio",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "https://pbs.twimg.com/profile_images/1893074983095803904/kgAhTMQP_400x400.jpg",
       type: "60-min Strategy",
       date: "Mar 25, 2:30 PM",
       location: "Sui Video Conference",
     },
     {
       id: 2,
-      name: "Michael Chen",
+      name: "adeniyi.sui",
       company: "Blockchain Labs",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "https://pbs.twimg.com/profile_images/1893074983095803904/kgAhTMQP_400x400.jpg",
       type: "15-min Check-in",
       date: "Mar 27, 11:15 AM",
       location: "Sui Video Conference",
@@ -35,9 +35,9 @@ export default function MyDatesPage() {
   const pastMeetings = [
     {
       id: 3,
-      name: "Alex Johnson",
-      company: "TechCorp",
-      avatar: "/placeholder.svg?height=40&width=40",
+      name: "eisdisaster.sui",
+      company: "MystenLabs",
+      avatar: "https://pbs.twimg.com/profile_images/1893074983095803904/kgAhTMQP_400x400.jpg",
       type: "30-min Meeting",
       date: "Mar 15, 10:00 AM",
       location: "Sui Video Conference",
@@ -45,9 +45,9 @@ export default function MyDatesPage() {
     },
     {
       id: 4,
-      name: "Jennifer Lee",
+      name: "ogoyiThompson.sui",
       company: "Marketing Solutions",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "https://pbs.twimg.com/profile_images/1893074983095803904/kgAhTMQP_400x400.jpg",
       type: "45-min Consultation",
       date: "Mar 10, 3:00 PM",
       location: "Sui Video Conference",

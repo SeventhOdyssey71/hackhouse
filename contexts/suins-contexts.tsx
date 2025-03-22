@@ -5,6 +5,7 @@ import { useCurrentAccount, useSignAndExecuteTransaction, useSuiClient } from '@
 import { SuinsClient, SuinsTransaction } from '@mysten/suins';
 import { MIST_PER_SUI } from '@mysten/sui/utils';
 import { coinWithBalance, Transaction } from "@mysten/sui/transactions";
+import { MotionValue } from 'framer-motion';
 
 interface SuiContextType {
     registerName: (name: string, years: 1 | 2 | 3 | 4 | 5) => Promise<any>;
@@ -61,7 +62,7 @@ export const useSuiNs = () => {
     const context = useContext(SuiContext);
     if (!context) {
       console.warn("Warning: useSuiNs is being used outside of SuiNsProvider.");
-      return { registerName: async () => {} }; 
+      return { registerName: async () => {MotionValue} }; 
     }
     return context;
   };

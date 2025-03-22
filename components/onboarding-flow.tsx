@@ -20,7 +20,7 @@ export default function OnboardingFlow({ onComplete, walletAddress }: Onboarding
   const [step, setStep] = useState(1)
   const [suiNSName, setSuiNSName] = useState<string>("")
   const [pfpUrl, setPfpUrl] = useState<string>("")
-  const [meetingFee, setMeetingFee] = useState("135.5")
+  const [meetingFee, setMeetingFee] = useState("50")
   const [currency, setCurrency] = useState<"SUI" | "USD">("SUI")
 
   const totalSteps = 4 

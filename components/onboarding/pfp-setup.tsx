@@ -16,12 +16,12 @@ export default function PFPSetup({ onComplete, suiNSName }: PFPSetupProps) {
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
 
   const defaultAvatars = [
-    "/placeholder.svg?height=80&width=80",
-    "/placeholder.svg?height=80&width=80",
-    "/placeholder.svg?height=80&width=80",
-    "/placeholder.svg?height=80&width=80",
-    "/placeholder.svg?height=80&width=80",
-    "/placeholder.svg?height=80&width=80",
+    "https://pbs.twimg.com/media/Gkug3ypXsAAGAWy?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/Gkug3ynX0AAnWHy?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/Gkug3ypXUAAF6lt?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/Gkug3yoXoAAq2eH?format=jpg&name=medium",
+    "https://pbs.twimg.com/media/GlZtj7rbwAEciVj?format=png&name=360x360",
+    "https://pbs.twimg.com/media/Gh8Nknna4AIYS7S?format=jpg&name=4096x4096",
   ]
 
   const handleImageUpload = () => {

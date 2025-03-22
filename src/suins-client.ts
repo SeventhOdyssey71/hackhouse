@@ -22,8 +22,6 @@ import type {
 	SuinsPriceList,
 } from './types.js';
 
-/// The SuinsClient is the main entry point for the Suins SDK.
-/// It allows you to interact with SuiNS.
 export class SuinsClient {
 	client: SuiClient;
 	network: Network;
@@ -31,10 +29,10 @@ export class SuinsClient {
 
 	constructor(config: SuinsClientConfig) {
 		this.client = config.client;
-		this.network = config.network || 'mainnet';
+		this.network = config.network || 'testnet';
 
-		if (this.network === 'mainnet') {
-			this.config = mainPackage.mainnet;
+		if (this.network === 'testnet') {
+			this.config = mainPackage.testnet;
 		} else if (this.network === 'testnet') {
 			this.config = mainPackage.testnet;
 		} else {
@@ -42,16 +40,6 @@ export class SuinsClient {
 		}
 	}
 
-	/**
-	 * Returns the price list for SuiNS names in the base asset.
-	 */
-
-	// Format:
-	// {
-	// 	[ 3, 3 ] => 500000000,
-	// 	[ 4, 4 ] => 100000000,
-	// 	[ 5, 63 ] => 20000000
-	// }
 	async getPriceList(): Promise<SuinsPriceList> {
 		if (!this.config.suins) throw new Error('Suins object ID is not set');
 		if (!this.config.packageId) throw new Error('Price list config not found');
@@ -67,7 +55,6 @@ export class SuinsClient {
 			},
 		});
 
-		// Ensure the content exists and is a MoveStruct with expected fields
 		if (
 			!priceList?.data?.content ||
 			priceList.data.content.dataType !== 'moveObject' ||
@@ -76,7 +63,6 @@ export class SuinsClient {
 			throw new Error('Price list not found or content is invalid');
 		}
 
-		// Safely extract fields
 		const fields = priceList.data.content.fields as Record<string, any>;
 		if (!fields.value || !fields.value.fields || !fields.value.fields.pricing) {
 			throw new Error('Pricing fields not found in the price list');
@@ -87,8 +73,8 @@ export class SuinsClient {
 
 		for (const entry of contentArray) {
 			const keyFields = entry.fields.key.fields;
-			const key = [Number(keyFields.pos0), Number(keyFields.pos1)]; // Convert keys to numbers
-			const value = Number(entry.fields.value); // Convert value to a number
+			const key = [Number(keyFields.pos0), Number(keyFields.pos1)]; 
+			const value = Number(entry.fields.value); 
 
 			priceMap.set(key, value);
 		}
@@ -96,16 +82,6 @@ export class SuinsClient {
 		return priceMap;
 	}
 
-	/**
-	 * Returns the renewal price list for SuiNS names in the base asset.
-	 */
-
-	// Format:
-	// {
-	// 	[ 3, 3 ] => 500000000,
-	// 	[ 4, 4 ] => 100000000,
-	// 	[ 5, 63 ] => 20000000
-	// }
 	async getRenewalPriceList(): Promise<SuinsPriceList> {
 		if (!this.config.suins) throw new Error('Suins object ID is not set');
 		if (!this.config.packageId) throw new Error('Price list config not found');
@@ -131,7 +107,6 @@ export class SuinsClient {
 			throw new Error('Price list not found or content structure is invalid');
 		}
 
-		// Safely extract fields
 		const fields = priceList.data.content.fields as Record<string, any>;
 		if (
 			!fields.value ||

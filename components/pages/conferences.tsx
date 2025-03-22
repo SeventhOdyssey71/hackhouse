@@ -13,26 +13,26 @@ export default function ConferencesPage() {
   const conferences = [
     {
       id: 1,
-      title: "Blockchain Summit 2025",
+      title: "Walrus Blob Meetup 2025",
       date: "Apr 15-17, 2025",
       attendees: 120,
-      image: "/placeholder.svg?height=200&width=400",
+      image: "https://pbs.twimg.com/profile_banners/1803816329553850368/1723558406/1500x500",
       status: "upcoming",
     },
     {
       id: 2,
-      title: "Sui Developer Conference",
+      title: "Gaming and NFT Reserved Meet",
       date: "May 22-24, 2025",
       attendees: 85,
-      image: "/placeholder.svg?height=200&width=400",
+      image: "https://pbs.twimg.com/profile_banners/1661035014975266817/1728567592/1500x500",
       status: "upcoming",
     },
     {
       id: 3,
-      title: "Web3 Innovation Forum",
+      title: "Deepbook Tech Conference",
       date: "Feb 10-12, 2025",
       attendees: 150,
-      image: "/placeholder.svg?height=200&width=400",
+      image: "https://pbs.twimg.com/profile_banners/1630298367350968321/1711645315/1500x500",
       status: "past",
     },
   ]

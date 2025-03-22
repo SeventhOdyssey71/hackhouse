@@ -10,27 +10,19 @@ export default function MeetingRequestsPage() {
   const meetingRequests = [
     {
       id: 1,
-      name: "Alex Johnson",
-      company: "TechCorp",
-      avatar: "/placeholder.svg?height=40&width=40",
+      name: "sugarcho.sui",
+      company: "SuiOnCampus",
+      avatar: "https://pbs.twimg.com/profile_images/1893074983095803904/kgAhTMQP_400x400.jpg",
       type: "30-min Meeting",
       date: "Tomorrow, 10:00 AM",
       status: "pending",
     },
-    {
-      id: 2,
-      name: "Sarah Williams",
-      company: "Design Studio",
-      avatar: "/placeholder.svg?height=40&width=40",
-      type: "60-min Strategy",
-      date: "Mar 25, 2:30 PM",
-      status: "confirmed",
-    },
+
     {
       id: 3,
-      name: "Michael Chen",
-      company: "Blockchain Labs",
-      avatar: "/placeholder.svg?height=40&width=40",
+      name: "anayo.sui",
+      company: "SuiOnCampus",
+      avatar: "https://pbs.twimg.com/profile_images/1893074983095803904/kgAhTMQP_400x400.jpg",
       type: "15-min Check-in",
       date: "Mar 27, 11:15 AM",
       status: "pending",
@@ -55,26 +47,6 @@ export default function MeetingRequestsPage() {
         <CustomConnectButton />
       </header>
 
-      {/* Profile Section */}
-      <div className="border-b p-4 bg-white">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-medium">
-              S
-            </div>
-            <div>
-              <h2 className="font-medium">smbrian.sui</h2>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <span>Meetings Requested</span>
-                <Check className="h-4 w-4" />
-              </div>
-            </div>
-          </div>
-          <Button variant="outline" className="rounded-full">
-            Request Meeting <Plus className="h-4 w-4 ml-1" />
-          </Button>
-        </div>
-      </div>
 
       {/* Meeting Requests */}
       <div className="p-6">

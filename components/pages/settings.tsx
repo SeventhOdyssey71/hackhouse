@@ -163,20 +163,11 @@ function ProfileSettings() {
 
           <div className="flex-1 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">First Name</label>
-                <Input defaultValue="Sam" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Last Name</label>
-                <Input defaultValue="Brian" />
-              </div>
+             
+             
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
-              <Input defaultValue="sam@example.com" />
-            </div>
+           
 
             <div className="space-y-2">
               <label className="text-sm font-medium">Sui Name</label>
